@@ -75,7 +75,6 @@ public class Wall {
         this.posicion = new Point2D();
     }
 
-    
     public Wall(Point2D pocicion) {
         this.posicion = pocicion;
 
@@ -84,7 +83,7 @@ public class Wall {
     public Wall(int x, int y) {
         this.posicion = new Point2D(x, y);
     }
-    
+
     public void paint(Screen s) {
         char c;
         for (int i = 0; i < this.height; i++) {
@@ -94,9 +93,32 @@ public class Wall {
                         new TextCharacter(c, TextColor.ANSI.WHITE,
                                 TextColor.ANSI.BLACK));
             }
-           
+
         }
     }
-    
-    
+
+    public boolean collsion(Bullet b) {
+        return collisionX(b) && collisionY(b);
+    }
+
+    private boolean collisionY(Bullet b) {
+        boolean collision = false;
+        /* if (this.posicion.getY() + this.height >= b.getPocicion().getY() && 
+                this.posicion.getY() <= b.getPocicion().getY()) {
+            collision = true; */
+        if (this.posicion.getY() <= b.getPocicion().getY() && this.posicion.getY() <= b.getPocicion().getY()) {
+            collision = true;
+        }
+        return collision;
+    }
+
+    private boolean collisionX(Bullet b) {
+        boolean collision = false;
+        if (this.posicion.getX() <= b.getPocicion().getX()
+                && this.posicion.getX() + this.width <= b.getPocicion().getX()) {
+            collision = true;
+        }
+        return collision;
+    }
+
 }
